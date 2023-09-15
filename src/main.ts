@@ -7,8 +7,10 @@ import { CatalogoDeProductosModule } from './catalogo-de-productos/catalogo-de-p
 import { ComunidadModule } from './comunidad/comunidad.module';
 import { FooterModule } from './footer/footer.module';
 import { PaginaDeInicioModule } from './pagina-de-inicio/pagina-de-inicio.module';
-import { PopUpModule } from './pop-up/pop-up.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { CajasMisteriosasModule } from './cajas-misteriosas/cajas-misteriosas.module';
+import { CajasDelMesModule } from './cajas-del-mes/cajas-del-mes.module';
+import { SuscripcionModule } from './suscripcion/suscripcion.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -26,6 +28,27 @@ let documentBuilder =new DocumentBuilder()
 
 let documentBuilderAdministracion =new DocumentBuilder()
   .setTitle("Documentación de la API - Administración")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+  .build();
+
+let documentBuilderCajasDelMes =new DocumentBuilder()
+  .setTitle("Documentación de la API - Cajas del mes")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+  .build();
+
+let documentBuilderCajasMisteriosas =new DocumentBuilder()
+  .setTitle("Documentación de la API - Cajas Misteriosas")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+  .build();
+
+let documentBuilderSuscripcion =new DocumentBuilder()
+  .setTitle("Documentación de la API - Suscripción")
   .setVersion(versionProyecto)
   .setDescription("Página web Naciones Unidas")
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
@@ -66,13 +89,6 @@ let documentBuilderPaginadeinicio =new DocumentBuilder()
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
   .build();
 
-let documentBuilderPopup =new DocumentBuilder()
-  .setTitle("Documentación de la API - Pop-up")
-  .setVersion(versionProyecto)
-  .setDescription("Página web Naciones Unidas")
-  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
-  .build();
-
 let documentBuilderUsuario =new DocumentBuilder()
   .setTitle("Documentación de la API - Usuario")
   .setVersion(versionProyecto)
@@ -83,6 +99,12 @@ let documentBuilderUsuario =new DocumentBuilder()
   const document = SwaggerModule.createDocument(app, documentBuilder);
   const documentAdministracion= SwaggerModule.createDocument(app, documentBuilderAdministracion, {
     include: [AdministracionModule]
+  });
+  const documentCajasDelMes= SwaggerModule.createDocument(app, documentBuilderCajasDelMes, {
+    include: [CajasDelMesModule]
+  });
+  const documentCajasMisteriosas= SwaggerModule.createDocument(app, documentBuilderCajasMisteriosas, {
+    include: [CajasMisteriosasModule]
   });
   const documentCarrodecompras= SwaggerModule.createDocument(app, documentBuilderCarrodecompras, {
     include: [CarroDeComprasModule]
@@ -99,8 +121,8 @@ let documentBuilderUsuario =new DocumentBuilder()
   const documentPaginadeinicio= SwaggerModule.createDocument(app, documentBuilderPaginadeinicio, {
     include: [PaginaDeInicioModule]
   });
-  const documentPopup= SwaggerModule.createDocument(app, documentBuilderPopup, {
-    include: [PopUpModule]
+  const documentSuscripcion= SwaggerModule.createDocument(app, documentBuilderSuscripcion, {
+    include: [SuscripcionModule]
   });
   const documentUsuario= SwaggerModule.createDocument(app, documentBuilderUsuario, {
     include: [UsuarioModule]
@@ -108,12 +130,14 @@ let documentBuilderUsuario =new DocumentBuilder()
 
   SwaggerModule.setup ('documentacion', app, document); 
   SwaggerModule.setup ('Administracion', app, documentAdministracion);
+  SwaggerModule.setup ('cajasdelmes', app, documentCajasDelMes);
+  SwaggerModule.setup ('cajasmisteriosas', app, documentCajasMisteriosas);
   SwaggerModule.setup ('carrodecompras', app, documentCarrodecompras);
   SwaggerModule.setup ('Catalogodeproductos', app, documentCatalogodeproductos);
   SwaggerModule.setup ('comunidad', app, documentComunidad);
   SwaggerModule.setup ('footer', app, documentFooter);
   SwaggerModule.setup ('paginadeinicio', app, documentPaginadeinicio);
-  SwaggerModule.setup ('popup', app, documentPopup);
+  SwaggerModule.setup ('suscripcion', app, documentSuscripcion);
   SwaggerModule.setup ('usuario', app, documentUsuario);
 
   await app.listen(3000);

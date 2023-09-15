@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Pop-up')
-@Controller('pop-up')
-export class PopUpController {
+@ApiTags('Cajas del mes')
+@Controller('cajas-del-mes')
+export class CajasDelMesController  {
 
     @Get()
     getNombre():string {
-        return "Pop-up : Mayor de 18 años"
+        return "Cajas del mes"
     }
 }
