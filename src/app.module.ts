@@ -9,10 +9,12 @@ import { AdministracionModule } from './administracion/administracion.module';
 import { CajasMisteriosasModule } from './cajas-misteriosas/cajas-misteriosas.module';
 import { SuscripcionModule } from './suscripcion/suscripcion.module';
 import { CajasDelMesModule } from './cajas-del-mes/cajas-del-mes.module';
+import { RegaloController } from './regalo/regalo.controller';
+import { RegaloModule } from './regalo/regalo.module';
 
 @Module({
-  imports: [CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule],
-  controllers: [],
+  imports: [CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
+  controllers: [RegaloController],
   providers: [],
 })
 export class AppModule {}
