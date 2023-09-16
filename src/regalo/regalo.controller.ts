@@ -4,8 +4,8 @@ import { RegaloDto } from './dto/regalo.dto';
 
 
     
-@ApiTags('Cajas del mes')
-@Controller('cajas-del-mes')
+@ApiTags('Regalo')
+@Controller('regalo')
 export class RegaloController  {
 
     @Get()
