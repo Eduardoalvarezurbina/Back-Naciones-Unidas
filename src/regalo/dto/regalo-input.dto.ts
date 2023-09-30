@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegaloInputDto {
-  @ApiProperty({ description: 'Nombre del regalo', example: 'Caja de chocolates' })
+  @ApiProperty({ description: 'Nombre del regalo', example: 'Caja de regalo EEUU' })
   nombre: string;
 
-  @ApiProperty({ description: 'Descripción del regalo', example: 'Una caja de chocolates variados' })
+  @ApiProperty({ description: 'Descripción del regalo', example: 'Caja de regalo gringa' })
   descripcion: string;
 
-  @ApiProperty({ description: 'Precio del regalo', example: 10.99 })
+  @ApiProperty({ description: 'Precio del regalo', example: 59990 })
   precio: number;
 }
