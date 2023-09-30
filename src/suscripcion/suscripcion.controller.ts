@@ -4,6 +4,10 @@ import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { SuscripcionInputDto } from './dto/suscripcion-input.dto';
 import { SuscripcionOutputDto } from './dto/suscripcion-output.dto';
 
+export class SuscripcionDto {
+  @ApiProperty({ description: 'Nombre de la suscripción', example: 'Suscripción mensual' })
+  nombre: string;
+}
 @ApiTags('Suscripción')
 @Controller('suscripcion')
 export class SuscripcionController {
@@ -30,7 +34,4 @@ export class SuscripcionController {
     }
 }
 
-export class SuscripcionDto {
-    @ApiProperty({ description: 'Nombre de la suscripción', example: 'Suscripción mensual' })
-    nombre: string;
-  }
+
