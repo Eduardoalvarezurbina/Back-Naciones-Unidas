@@ -28,7 +28,7 @@ export class SuscripcionController {
 
     
     @Get()
-    @ApiCreatedResponse({description: "Cajas del mes", type: SuscripcionDto})
+    @ApiCreatedResponse({description: "Suscripcion", type: SuscripcionDto})
     getNombre(): SuscripcionDto{
         return {nombre:"Suscripcion"};
     }

@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOAuth2, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CajasmisteriosasDto } from './dto/cajas-misteriosas.dto';
 import { CajasmisteriosasInputDto } from './dto/cajas-misteriosas-input.dto';
 import { CajasmisteriosasOutputDto } from './dto/cajas-misteriosas-output.dto';
@@ -32,6 +32,7 @@ export class CajasMisteriosasController {
   @Post()
   @ApiCreatedResponse({ description: 'Caja misteriosa creada exitosamente', type: CajasmisteriosasOutputDto })
   crearCajaMisteriosa(@Body() cajaMisteriosaInputDto: CajasmisteriosasInputDto): CajasmisteriosasOutputDto {
+  //console.log("nombre: " +cajaMisteriosaInputDto)
     const nuevaCajaMisteriosa: CajasmisteriosasOutputDto = {
       id: this.cajasMisteriosas.length + 1,
       nombre: cajaMisteriosaInputDto.nombre,
@@ -43,7 +44,7 @@ export class CajasMisteriosasController {
   }
 
   @Get()
-  @ApiCreatedResponse({ description: 'Lista de cajas misteriosas', type: [CajasmisteriosasOutputDto] })
+  @ApiOkResponse({ description: 'Lista de cajas misteriosas', type: [CajasmisteriosasOutputDto] })
   obtenerCajasMisteriosas(): CajasmisteriosasOutputDto[] {
     return this.cajasMisteriosas;
   }
