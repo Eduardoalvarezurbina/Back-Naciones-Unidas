@@ -13,6 +13,7 @@ import { RegaloController } from './regalo/regalo.controller';
 import { RegaloModule } from './regalo/regalo.module';
 import { InvitadoModule } from './invitado/invitado.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { InvitadoEntity } from './invitado/invitado.entity';
 
 @Module({
   imports: [
@@ -22,10 +23,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port:3306,
       username: 'root',
       password: 'clave123',
-      database: 'proyecto'
-    //  entities: ["src/**/*.entity{.ts,.js}"],
-     // synchronize: true,
-      //logging: true
+      database: 'picoteo',      
+      entities: [InvitadoEntity],
+      synchronize: true,
+      logging: true
     }),    
       
       InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
