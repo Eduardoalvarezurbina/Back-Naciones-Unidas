@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { InvitadoOutputDto } from './dto/invitado-output.dto';
 
-@Entity('invitado')
+@Entity('invitados')
 export class InvitadoEntity {
   @PrimaryGeneratedColumn()
   id: number;

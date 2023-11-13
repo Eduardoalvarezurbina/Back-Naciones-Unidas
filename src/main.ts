@@ -162,7 +162,7 @@ let documentBuilderRegalo =new DocumentBuilder()
   SwaggerModule.setup ('regalo', app, documentRegalo);
   SwaggerModule.setup ('suscripcion', app, documentSuscripcion);
   SwaggerModule.setup ('usuario', app, documentUsuario);
-  SwaggerModule.setup ('invitados', app, documentInvitado);
+  SwaggerModule.setup ('api-docs/invitados', app, documentInvitado);
 
   await app.listen(3000);
 }

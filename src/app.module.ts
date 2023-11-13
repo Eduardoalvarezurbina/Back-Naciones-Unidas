@@ -26,7 +26,8 @@ import { InvitadoEntity } from './invitado/invitado.entity';
       database: 'picoteo',      
       entities: [InvitadoEntity],
       synchronize: true,
-      logging: true
+      logging: true,
+      autoLoadEntities: true,
     }),    
       
       InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
