@@ -12,6 +12,7 @@ import { CajasMisteriosasModule } from './cajas-misteriosas/cajas-misteriosas.mo
 import { CajasDelMesModule } from './cajas-del-mes/cajas-del-mes.module';
 import { SuscripcionModule } from './suscripcion/suscripcion.module';
 import { RegaloModule } from './regalo/regalo.module';
+import { InvitadoModule } from './invitado/invitado.module'; 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,6 +34,13 @@ let documentBuilderAdministracion =new DocumentBuilder()
   .setDescription("Página web Naciones Unidas")
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
   .build();
+
+let documentBuilderinvitado =new DocumentBuilder()
+.setTitle("Documentación de la API - Invitados")
+.setVersion(versionProyecto)
+.setDescription("Página web Naciones Unidas")
+.setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+.build();
 
 let documentBuilderCajasDelMes =new DocumentBuilder()
   .setTitle("Documentación de la API - Cajas del mes")
@@ -138,6 +146,9 @@ let documentBuilderRegalo =new DocumentBuilder()
   const documentUsuario= SwaggerModule.createDocument(app, documentBuilderUsuario, {
     include: [UsuarioModule]
   });
+  const documentInvitado= SwaggerModule.createDocument(app, documentBuilderinvitado, {
+    include: [InvitadoModule]
+  });
 
   SwaggerModule.setup ('documentacion', app, document); 
   SwaggerModule.setup ('Administracion', app, documentAdministracion);
@@ -151,7 +162,9 @@ let documentBuilderRegalo =new DocumentBuilder()
   SwaggerModule.setup ('regalo', app, documentRegalo);
   SwaggerModule.setup ('suscripcion', app, documentSuscripcion);
   SwaggerModule.setup ('usuario', app, documentUsuario);
+  SwaggerModule.setup ('invitados', app, documentInvitado);
 
   await app.listen(3000);
 }
 bootstrap();
+ 
