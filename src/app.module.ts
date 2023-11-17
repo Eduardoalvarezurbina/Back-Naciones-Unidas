@@ -14,6 +14,7 @@ import { RegaloModule } from './regalo/regalo.module';
 import { InvitadoModule } from './invitado/invitado.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvitadoEntity } from './invitado/invitado.entity';
+import { ProductoModule } from './producto/producto.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { InvitadoEntity } from './invitado/invitado.entity';
       autoLoadEntities: true,
     }),    
       
-      InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
+      ProductoModule, InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
   controllers: [RegaloController],
   providers: [],
 })

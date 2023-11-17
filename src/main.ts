@@ -13,6 +13,7 @@ import { CajasDelMesModule } from './cajas-del-mes/cajas-del-mes.module';
 import { SuscripcionModule } from './suscripcion/suscripcion.module';
 import { RegaloModule } from './regalo/regalo.module';
 import { InvitadoModule } from './invitado/invitado.module'; 
+import { ProductoModule } from './producto/producto.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -34,6 +35,13 @@ let documentBuilderAdministracion =new DocumentBuilder()
   .setDescription("Página web Naciones Unidas")
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
   .build();
+
+  let documentBuilderProducto =new DocumentBuilder()
+  .setTitle("Documentación de la API - Producto")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+  .build();  
 
 let documentBuilderinvitado =new DocumentBuilder()
 .setTitle("Documentación de la API - Invitados")
@@ -149,12 +157,15 @@ let documentBuilderRegalo =new DocumentBuilder()
   const documentInvitado= SwaggerModule.createDocument(app, documentBuilderinvitado, {
     include: [InvitadoModule]
   });
+  const documentProducto= SwaggerModule.createDocument(app, documentBuilderProducto, {
+    include: [ProductoModule]
+  });
 
   SwaggerModule.setup ('documentacion', app, document); 
   SwaggerModule.setup ('Administracion', app, documentAdministracion);
   SwaggerModule.setup ('cajasdelmes', app, documentCajasDelMes);
   SwaggerModule.setup ('cajasmisteriosas', app, documentCajasMisteriosas);
-  SwaggerModule.setup ('carrodecompras', app, documentCarrodecompras);
+  SwaggerModule.setup ('api-docs/carrodecompras', app, documentCarrodecompras);
   SwaggerModule.setup ('Catalogodeproductos', app, documentCatalogodeproductos);
   SwaggerModule.setup ('comunidad', app, documentComunidad);
   SwaggerModule.setup ('footer', app, documentFooter);
@@ -163,6 +174,7 @@ let documentBuilderRegalo =new DocumentBuilder()
   SwaggerModule.setup ('suscripcion', app, documentSuscripcion);
   SwaggerModule.setup ('usuario', app, documentUsuario);
   SwaggerModule.setup ('api-docs/invitados', app, documentInvitado);
+  SwaggerModule.setup ('api-docs/producto', app, documentProducto);
 
   await app.listen(3000);
 }
