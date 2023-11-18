@@ -18,6 +18,7 @@ import { ProductoModule } from './producto/producto.module';
 
 @Module({
   imports: [
+    
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '127.0.0.1',

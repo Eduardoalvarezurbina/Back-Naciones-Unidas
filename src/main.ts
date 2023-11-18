@@ -17,6 +17,11 @@ import { ProductoModule } from './producto/producto.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   const nombreProyecto = process.env.npm_package_name;
   const versionProyecto =process.env.npm_package_version;
@@ -176,7 +181,7 @@ let documentBuilderRegalo =new DocumentBuilder()
   SwaggerModule.setup ('api-docs/invitados', app, documentInvitado);
   SwaggerModule.setup ('api-docs/producto', app, documentProducto);
 
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0');
 }
 bootstrap();
  
