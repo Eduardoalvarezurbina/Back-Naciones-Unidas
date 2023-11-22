@@ -9,4 +9,7 @@ export class ProductoInputDto {
 
   @ApiProperty()
   readonly precio: number;
+
+  @ApiProperty()
+  readonly imagen: string;
 }
