@@ -15,9 +15,7 @@ export class ProductoService {
   ) {}
 
   async crearProducto(productoDto: ProductoInputDto): Promise<ProductoEntity> {
-    const rutaImagen = await this.guardarImagen(productoDto.nombre, productoDto.imagen);
     const producto = this.productoRepository.create(productoDto);
-    producto.imagen = rutaImagen;
     return await this.productoRepository.save(producto);
   }
 
@@ -69,8 +67,10 @@ export class ProductoService {
   }
 
   async guardarImagen(nombre: string, imagenBase64: string): Promise<string> {
+    console.log(`guardarImagen llamado con nombre: ${nombre}`);  // Añade esta línea
+  
     const imagenBuffer = Buffer.from(imagenBase64, 'base64');
-    const directorioImagenes = join(__dirname, '..', 'imagenes');
+    const directorioImagenes = 'C:\\Users\\edoal\\Desktop\\Backend\\imagenes';
     await mkdir(directorioImagenes, { recursive: true });
     const rutaImagen = join(directorioImagenes, `${nombre}.png`);
     await writeFile(rutaImagen, imagenBuffer);

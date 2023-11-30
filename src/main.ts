@@ -190,7 +190,7 @@ let documentBuilderRegalo =new DocumentBuilder()
 
   //server.use('/imagenes', express.static(join(__dirname, '..', 'imagenes')));
 
-  app.useStaticAssets(join(__dirname, '..', 'imagenes'), {
+  app.useStaticAssets('C:\\Users\\edoal\\Desktop\\Backend\\imagenes',{
     prefix: '/imagenes/', // Prefijo de la ruta para acceder a los archivos
   });
 
