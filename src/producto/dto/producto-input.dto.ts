@@ -5,6 +5,9 @@ export class ProductoInputDto {
   readonly nombre: string;
 
   @ApiProperty()
+  readonly categoria: string;
+
+  @ApiProperty()
   readonly descripcion: string;
 
   @ApiProperty()
@@ -12,4 +15,6 @@ export class ProductoInputDto {
 
   @ApiProperty()
   readonly imagen: string;
+
+  
 }

@@ -14,9 +14,16 @@ import { SuscripcionModule } from './suscripcion/suscripcion.module';
 import { RegaloModule } from './regalo/regalo.module';
 import { InvitadoModule } from './invitado/invitado.module'; 
 import { ProductoModule } from './producto/producto.module';
+import { ExpressAdapter, NestExpressApplication } from '@nestjs/platform-express';
+import * as express from 'express';
+import { join } from 'path';
+
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const server =express();
+  //const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -180,6 +187,13 @@ let documentBuilderRegalo =new DocumentBuilder()
   SwaggerModule.setup ('usuario', app, documentUsuario);
   SwaggerModule.setup ('api-docs/invitados', app, documentInvitado);
   SwaggerModule.setup ('api-docs/producto', app, documentProducto);
+
+  //server.use('/imagenes', express.static(join(__dirname, '..', 'imagenes')));
+
+  app.useStaticAssets(join(__dirname, '..', 'imagenes'), {
+    prefix: '/imagenes/', // Prefijo de la ruta para acceder a los archivos
+  });
+
 
   await app.listen(3000, '0.0.0.0');
 }

@@ -9,6 +9,9 @@ export class ProductoEntity extends BaseEntity {
   nombre: string;
 
   @Column()
+  categoria: string;
+
+  @Column()
   descripcion: string;
 
   @Column('int')
@@ -16,4 +19,6 @@ export class ProductoEntity extends BaseEntity {
 
   @Column()
   imagen: string;
+
+  
 }

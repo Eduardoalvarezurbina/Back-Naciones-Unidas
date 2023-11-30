@@ -28,11 +28,20 @@ export class ProductoService {
       throw new NotFoundException('Producto no encontrado');
     }
 
+    producto.imagen = `http://localhost:3000${producto.imagen}`;
+
+
     return producto;
   }
 
   async obtenerTodosLosProductos(): Promise<ProductoEntity[]> {
-    return await this.productoRepository.find();
+    const productos = await this.productoRepository.find();
+
+    productos.forEach(producto => {
+    producto.imagen = `http://localhost:3000${producto.imagen}`;
+  });
+
+  return productos;
   }
 
   async actualizarProducto(id: number, productoDto: ProductoInputDto): Promise<ProductoEntity> {
@@ -65,6 +74,6 @@ export class ProductoService {
     await mkdir(directorioImagenes, { recursive: true });
     const rutaImagen = join(directorioImagenes, `${nombre}.png`);
     await writeFile(rutaImagen, imagenBuffer);
-    return rutaImagen;
+    return `/imagenes/${nombre}.png`;  // Devuelve la ruta relativa
   }
 }
