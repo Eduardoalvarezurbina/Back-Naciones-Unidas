@@ -26,7 +26,7 @@ export class ProductoService {
       throw new NotFoundException('Producto no encontrado');
     }
 
-    producto.imagen = `http://localhost:3000${producto.imagen}`;
+    producto.imagen = `${producto.imagen}`;
 
 
     return producto;
@@ -36,7 +36,7 @@ export class ProductoService {
     const productos = await this.productoRepository.find();
 
     productos.forEach(producto => {
-    producto.imagen = `http://localhost:3000${producto.imagen}`;
+    producto.imagen = `${producto.imagen}`;
   });
 
   return productos;
@@ -68,12 +68,15 @@ export class ProductoService {
 
   async guardarImagen(nombre: string, imagenBase64: string): Promise<string> {
     console.log(`guardarImagen llamado con nombre: ${nombre}`);  // Añade esta línea
-  
-    const imagenBuffer = Buffer.from(imagenBase64, 'base64');
+    console.log("imagenBase64: ", imagenBase64);
+    const imagenbuena= imagenBase64[0].split(';base64,').pop();
+    const imagenBuffer = Buffer.from(imagenbuena, 'base64');
     const directorioImagenes = 'C:\\Users\\edoal\\Desktop\\Backend\\imagenes';
     await mkdir(directorioImagenes, { recursive: true });
     const rutaImagen = join(directorioImagenes, `${nombre}.png`);
     await writeFile(rutaImagen, imagenBuffer);
-    return `/imagenes/${nombre}.png`;  // Devuelve la ruta relativa
+
+    const urlNgrok = 'https://f401-200-112-5-153.ngrok-free.app';
+    return `${urlNgrok}/imagenes/${nombre}.png`;
   }
 }

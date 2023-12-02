@@ -17,13 +17,14 @@ import { ProductoModule } from './producto/producto.module';
 import { ExpressAdapter, NestExpressApplication } from '@nestjs/platform-express';
 import * as express from 'express';
 import { join } from 'path';
-
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const server =express();
   //const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(server));
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',

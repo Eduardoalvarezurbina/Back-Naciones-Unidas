@@ -14,7 +14,7 @@ export class ProductoController {
   @Post()
   async crearProducto(@Body() productoDto: ProductoInputDto): Promise<ProductoEntity> {
     // Generar un nombre de archivo único para la imagen
-    const imageName = `${productoDto.nombre}.png`;
+    const imageName = productoDto.nombre;
   
     // Guardar la imagen usando la función `guardarImagen` de tu servicio
     const imagePath = await this.productoService.guardarImagen(imageName, productoDto.imagen);
