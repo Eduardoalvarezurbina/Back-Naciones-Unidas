@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PaginaDeInicioModule } from './pagina-de-inicio/pagina-de-inicio.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { CarroDeComprasModule } from './carro-de-compras/carro-de-compras.module';
-import { FooterModule } from './footer/footer.module';
+import { AuthModule } from './auth/auth.module';
 import { ComunidadModule } from './comunidad/comunidad.module';
 import { CatalogoDeProductosModule } from './catalogo-de-productos/catalogo-de-productos.module';
 import { AdministracionModule } from './administracion/administracion.module';
@@ -15,6 +15,9 @@ import { InvitadoModule } from './invitado/invitado.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvitadoEntity } from './invitado/invitado.entity';
 import { ProductoModule } from './producto/producto.module';
+import { UsuarioService } from './usuario/usuario.service';
+import { UsuarioController } from './usuario/usuario.controller';
+import { UsuarioEntity } from './usuario/usuario.entity';
 
 @Module({
   imports: [
@@ -26,14 +29,14 @@ import { ProductoModule } from './producto/producto.module';
       username: 'root',
       password: 'clave123',
       database: 'picoteo',      
-      entities: [InvitadoEntity],
+      entities: [InvitadoEntity,UsuarioEntity],
       synchronize: true,
       logging: true,
       autoLoadEntities: true,
     }),    
       
-      ProductoModule, InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, FooterModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
-  controllers: [RegaloController],
+      ProductoModule, InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, AuthModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
+  controllers: [RegaloController,UsuarioController],
   providers: [],
 })
 export class AppModule {}

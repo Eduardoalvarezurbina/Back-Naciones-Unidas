@@ -5,7 +5,7 @@ import { AdministracionModule } from './administracion/administracion.module';
 import { CarroDeComprasModule } from './carro-de-compras/carro-de-compras.module';
 import { CatalogoDeProductosModule } from './catalogo-de-productos/catalogo-de-productos.module';
 import { ComunidadModule } from './comunidad/comunidad.module';
-import { FooterModule } from './footer/footer.module';
+import { AuthModule } from './auth/auth.module';
 import { PaginaDeInicioModule } from './pagina-de-inicio/pagina-de-inicio.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { CajasMisteriosasModule } from './cajas-misteriosas/cajas-misteriosas.module';
@@ -105,8 +105,8 @@ let documentBuilderComunidad =new DocumentBuilder()
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
   .build();  
 
-let documentBuilderFooter =new DocumentBuilder()
-  .setTitle("Documentación de la API - Footer")
+let documentBuilderAuth =new DocumentBuilder()
+  .setTitle("Documentación de la API - Auth")
   .setVersion(versionProyecto)
   .setDescription("Página web Naciones Unidas")
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
@@ -152,8 +152,8 @@ let documentBuilderRegalo =new DocumentBuilder()
   const documentComunidad= SwaggerModule.createDocument(app, documentBuilderComunidad, {
     include: [ComunidadModule]
   });
-  const documentFooter= SwaggerModule.createDocument(app, documentBuilderFooter, {
-    include: [FooterModule]
+  const documentFooter= SwaggerModule.createDocument(app, documentBuilderAuth, {
+    include: [AuthModule]
   });
   const documentPaginadeinicio= SwaggerModule.createDocument(app, documentBuilderPaginadeinicio, {
     include: [PaginaDeInicioModule]
@@ -181,7 +181,7 @@ let documentBuilderRegalo =new DocumentBuilder()
   SwaggerModule.setup ('api-docs/carrodecompras', app, documentCarrodecompras);
   SwaggerModule.setup ('Catalogodeproductos', app, documentCatalogodeproductos);
   SwaggerModule.setup ('comunidad', app, documentComunidad);
-  SwaggerModule.setup ('footer', app, documentFooter);
+  SwaggerModule.setup ('auth', app, documentFooter);
   SwaggerModule.setup ('paginadeinicio', app, documentPaginadeinicio);
   SwaggerModule.setup ('regalo', app, documentRegalo);
   SwaggerModule.setup ('suscripcion', app, documentSuscripcion);

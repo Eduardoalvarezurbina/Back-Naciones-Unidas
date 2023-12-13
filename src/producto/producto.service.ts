@@ -76,7 +76,7 @@ export class ProductoService {
     const rutaImagen = join(directorioImagenes, `${nombre}.png`);
     await writeFile(rutaImagen, imagenBuffer);
 
-    const urlNgrok = 'https://f401-200-112-5-153.ngrok-free.app';
+    const urlNgrok = 'https://8519-200-112-7-121.ngrok-free.app';
     return `${urlNgrok}/imagenes/${nombre}.png`;
   }
 }
