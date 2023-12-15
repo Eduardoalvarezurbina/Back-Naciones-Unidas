@@ -30,7 +30,7 @@ export class UsuarioService {
         throw new ConflictException('El correo ya está registrado');
     }
 
-    await usuario.setClave(registroDto.password);
+     usuario.setClave(registroDto.password);
     return await this.usuarioRepository.save(usuario);
   }
 }

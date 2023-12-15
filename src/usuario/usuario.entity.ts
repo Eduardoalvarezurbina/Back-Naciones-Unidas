@@ -1,6 +1,7 @@
 // usuario.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+//import * as bcrypt from 'bcrypt';
+import * as Crypto from 'crypto';
 
 @Entity('usuarios')
 export class UsuarioEntity {
@@ -25,12 +26,10 @@ export class UsuarioEntity {
   @Column()
   passwordHash: string;
 
-  async setClave(clave: string): Promise<void> {
-    const saltRounds = 10;
-    this.passwordHash = await bcrypt.hash(clave, saltRounds);
+   setClave(clave: string): void{
+    
+    this.passwordHash = Crypto.createHash( 'md5' ).update(clave).digest('hex')
   }
 
-  async validarClave(clave: string): Promise<boolean> {
-    return await bcrypt.compare(clave, this.passwordHash);
-  }
+  
 }
