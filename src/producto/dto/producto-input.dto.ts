@@ -16,5 +16,8 @@ export class ProductoInputDto {
   @ApiProperty()
   readonly imagen: string;
 
+  @ApiProperty()
+  readonly stock: number;
+
   
 }

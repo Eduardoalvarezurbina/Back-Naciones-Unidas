@@ -7,6 +7,9 @@ import { RegistroDto } from './dto/usuario.dto';
 
 @Injectable()
 export class UsuarioService {
+  obtenerUsuarioPorId(userId: any) {
+      throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(UsuarioEntity)
     private readonly usuarioRepository: Repository<UsuarioEntity>,
@@ -15,6 +18,7 @@ export class UsuarioService {
   async findOneByCorreo(correo: string): Promise<UsuarioEntity> {
     return await this.usuarioRepository.findOne({ where: { correo } });
   }
+
 
   async registrarUsuario(registroDto: RegistroDto): Promise<UsuarioEntity> {
     const usuario = new UsuarioEntity();

@@ -1,34 +1,50 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CarroDeComprasRepository } from './carro-de-compras.repository';
-import { ProductoRepository } from '../producto/producto.repository';
-import { CarroDeCompras } from './carro-de-compras.entity';
-import { CarroDeComprasInputDto } from './dto/carro-de-compras-input.dto';
+import { Repository } from 'typeorm';
+import { ProductoEntity } from '../producto/producto.entity';
+import { CompraEntity } from '../compra/compra.entity';
+import { ProductoCarroDto } from './dto/carro-de-compras.dto';
 
 @Injectable()
 export class CarroDeComprasService {
+  private carrito: ProductoEntity[] = [];
+  //agregarProducto: any;
+
   constructor(
-    @InjectRepository(CarroDeComprasRepository)
-    private carroDeComprasRepository: CarroDeComprasRepository,
-    @InjectRepository(ProductoRepository) 
-    private productoRepository: ProductoRepository,
+    @InjectRepository(CompraEntity)
+    private readonly compraRepository: Repository<CompraEntity>,
   ) {}
 
-  async agregarProducto(carroId: number, productoId: number): Promise<CarroDeCompras> {
-    const carro = await this.carroDeComprasRepository.findOne({where: {id: carroId } });
-    const producto = await this.productoRepository.findOne({ where: { id: productoId } });
+  agregarProducto(producto: ProductoEntity): void {
+    this.carrito.push(producto);
+  }
 
-    if (!carro || !producto) {
-        throw new NotFoundException('Carro o producto no encontrado');
-    }
+  async guardarCompra(productosArray: ProductoEntity[]): Promise<string> {
+    const compraId = Date.now().toString();
 
-    const nuevoItemCarro = this.carroDeComprasRepository.create({
-        producto,
-        cantidad: 1, // Puedes cambiar esto si necesitas una cantidad diferente
+    const compra = this.compraRepository.create({
+      id: compraId,
+      productos: productosArray,
     });
 
-    await this.carroDeComprasRepository.save(nuevoItemCarro);
+    // Guarda la compra en la base de datos
+    await this.compraRepository.save(compra);
 
-    return nuevoItemCarro;
+    // Agrega el ID de la compra al carrito
+    this.carrito.push(...productosArray.map(producto => ({ ...producto, compraId })));
+
+    return compraId;
+  }
+
+  async obtenerProductoPorId(id: number): Promise<ProductoEntity | undefined> {
+    return this.carrito.find(producto => producto.id === id);
+  }
+
+  obtenerCarrito(): ProductoEntity[] {
+    return this.carrito;
+  }
+
+  vaciarCarrito(): void {
+    this.carrito = [];
   }
 }

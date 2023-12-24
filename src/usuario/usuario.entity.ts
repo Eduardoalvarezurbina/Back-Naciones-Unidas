@@ -1,4 +1,4 @@
-// usuario.entity.ts
+
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 //import * as bcrypt from 'bcrypt';
 import * as Crypto from 'crypto';
