@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { CarroDeComprasService } from './carro-de-compras.service';
 import { ProductoEntity } from '../producto/producto.entity';
-import { ProductoCarroDto } from './dto/carro-de-compras.dto';
+import { carro-de-comprasDto } from './dto/carro-de-compras.dto';
 
 @Controller('carro-de-compras')
 export class CarroDeComprasController {

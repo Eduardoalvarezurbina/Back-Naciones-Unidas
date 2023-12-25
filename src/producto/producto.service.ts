@@ -9,6 +9,9 @@ import { mkdir } from 'fs/promises';
 
 @Injectable()
 export class ProductoService {
+  eliminarProducto(id: number): void | PromiseLike<void> {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(ProductoEntity)
     private readonly productoRepository: Repository<ProductoEntity>,
@@ -60,23 +63,39 @@ export class ProductoService {
     return await this.productoRepository.save(productoExistente);
   }
 
-  async eliminarProducto(id: number): Promise<void> {
-    const productoExistente = await this.obtenerProductoPorId(id);
-
-    await this.productoRepository.remove(productoExistente);
-  }
-
-  async guardarImagen(nombre: string, imagenBase64: string): Promise<string> {
-    console.log(`guardarImagen llamado con nombre: ${nombre}`);  // Añade esta línea
+  async guardarImagen(nombre: string, imagenBase64: string, imagenBase64_2?: string, imagenBase64_3?: string): Promise<{ imagen1: string, imagen2?: string, imagen3?: string }> {
+    console.log(`guardarImagen llamado con nombre: ${nombre}`);
     console.log("imagenBase64: ", imagenBase64);
-    const imagenbuena= imagenBase64[0].split(';base64,').pop();
+    const imagenbuena = imagenBase64.split(';base64,').pop();
     const imagenBuffer = Buffer.from(imagenbuena, 'base64');
     const directorioImagenes = 'C:\\Users\\edoal\\Desktop\\Backend\\imagenes';
     await mkdir(directorioImagenes, { recursive: true });
     const rutaImagen = join(directorioImagenes, `${nombre}.png`);
     await writeFile(rutaImagen, imagenBuffer);
-
-    //const urlNgrok = 'https://7e9a-181-162-60-244.ngrok-free.app';
-    return `/imagenes/${nombre}.png`;
+  
+    let imagen2: string | undefined;
+    if (imagenBase64_2) {
+      const imagenbuena2 = imagenBase64_2.split(';base64,').pop();
+      const imagenBuffer2 = Buffer.from(imagenbuena2, 'base64');
+      const rutaImagen2 = join(directorioImagenes, `${nombre}_2.png`);
+      await writeFile(rutaImagen2, imagenBuffer2);
+      imagen2 = `/imagenes/${nombre}_2.png`;
+    }
+    
+    let imagen3: string | undefined;
+    if (imagenBase64_3) {
+      const imagenbuena3 = imagenBase64_3.split(';base64,').pop();
+      const imagenBuffer3 = Buffer.from(imagenbuena3, 'base64');
+      const rutaImagen3 = join(directorioImagenes, `${nombre}_3.png`);
+      await writeFile(rutaImagen3, imagenBuffer3);
+      imagen3 = `/imagenes/${nombre}_3.png`;
+    }
+  
+    return {
+      imagen1: `/imagenes/${nombre}.png`,
+      imagen2: `/imagenes/${nombre}_2.png`,
+      imagen3: `/imagenes/${nombre}_3.png`,
+    };
   }
-}
+  }
+

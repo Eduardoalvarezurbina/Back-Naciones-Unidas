@@ -1,16 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PaginaDeInicioModule } from './pagina-de-inicio/pagina-de-inicio.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { CarroDeComprasModule } from './carro-de-compras/carro-de-compras.module';
 import { AuthModule } from './auth/auth.module';
-import { ComunidadModule } from './comunidad/comunidad.module';
-import { CatalogoDeProductosModule } from './catalogo-de-productos/catalogo-de-productos.module';
-import { AdministracionModule } from './administracion/administracion.module';
-import { CajasMisteriosasModule } from './cajas-misteriosas/cajas-misteriosas.module';
 import { SuscripcionModule } from './suscripcion/suscripcion.module';
 import { CajasDelMesModule } from './cajas-del-mes/cajas-del-mes.module';
-import { RegaloController } from './regalo/regalo.controller';
-import { RegaloModule } from './regalo/regalo.module';
 import { InvitadoModule } from './invitado/invitado.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvitadoEntity } from './invitado/invitado.entity';
@@ -35,8 +28,8 @@ import { UsuarioEntity } from './usuario/usuario.entity';
       autoLoadEntities: true,
     }),    
       
-      ProductoModule, InvitadoModule, CajasDelMesModule,CajasMisteriosasModule,SuscripcionModule, PaginaDeInicioModule, UsuarioModule, CarroDeComprasModule, AuthModule, ComunidadModule, CatalogoDeProductosModule, AdministracionModule, CajasMisteriosasModule, SuscripcionModule, CajasDelMesModule, RegaloModule],
-  controllers: [RegaloController,UsuarioController],
+      ProductoModule, InvitadoModule, CajasDelMesModule,SuscripcionModule, UsuarioModule, CarroDeComprasModule, AuthModule, SuscripcionModule, CajasDelMesModule],
+  controllers: [UsuarioController],
   providers: [],
 })
 export class AppModule {}

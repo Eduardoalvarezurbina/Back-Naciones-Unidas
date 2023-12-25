@@ -16,19 +16,29 @@ export class ProductoEntity extends BaseEntity {
   descripcion: string;
 
   @Column()
+  clasificacion: string;
+
+  @Column()
+  sku: string;
+
+  @Column()
   precio: number;
 
   @Column()
   imagen: string;
 
+  @Column({ nullable: true }) // opcional
+  imagen2: string;
+
+  @Column({ nullable: true }) // opcional
+  imagen3: string;
+
   @Column()
-  stock: number;
+  cantidad: number;
 
   @Column()
   compraId: string;
 
   @ManyToOne(() => CompraEntity, compra => compra.productos)
   compra: CompraEntity;
-
-  
 }
