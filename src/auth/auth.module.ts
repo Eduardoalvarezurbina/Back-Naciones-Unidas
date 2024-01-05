@@ -5,14 +5,13 @@ import { AuthController } from './auth.controller';
 import { UsuarioService } from '../usuario/usuario.service'; 
 import { UsuarioModule } from '../usuario/usuario.module'; 
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth.constants'; // Asegúrate de que la ruta es correcta
 
 @Module({
   imports: [
     UsuarioModule, 
     JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '600s' }, // Ajusta esto según tus necesidades
+      secret: '1234567',
+      signOptions: { expiresIn: '1h' }, // duración de sesión
     }),
   ],
   providers: [AuthService, UsuarioService],

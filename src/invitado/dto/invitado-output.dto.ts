@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class InvitadoOutputDto {
-  toDto(): any {
-    throw new Error('Method not implemented.');
-  }
+  
   @ApiProperty({ description: 'ID del invitado', example: 1 })
   id: number;
 

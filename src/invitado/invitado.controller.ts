@@ -10,27 +10,28 @@ export class InvitadoController {
   constructor(private readonly invitadoService: InvitadoService) {}
 
   @Post()
-  @ApiCreatedResponse({ description: 'Invitado creado exitosamente', type: InvitadoOutputDto })
+  @ApiCreatedResponse({ description: 'Datos de invitados guardados correctamente', type: InvitadoOutputDto })
   async crearInvitado(@Body() invitadoInputDto: InvitadoInputDto): Promise<InvitadoOutputDto> {
     try {
-      const nuevoInvitado = await this.invitadoService.crearInvitado(invitadoInputDto);
-      return nuevoInvitado.toDto();
+      const invitado = await this.invitadoService.crearInvitado(invitadoInputDto);
+      return invitado;
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException('Error al crear el invitado');
     }
   }
+
 
   @Get()
   @ApiCreatedResponse({ description: 'Lista de invitados', type: [InvitadoOutputDto] })
   async obtenerInvitados(): Promise<InvitadoOutputDto[]> {
-    console.log('Inicio de obtenerInvitados'); 
+    
     try {
       const invitados = await this.invitadoService.obtenerInvitados();
-      console.log('Invitados obtenidos:', invitados); 
-      await this.invitadoService.imprimirInvitados(); 
-      return invitados.map((invitado) => invitado.toDto());
+      console.log('Invitados obtenidos:', invitados);
+      await this.invitadoService.obtenerInvitados();
+      return invitados;
     } catch (error) {
-      console.error('Error en obtenerInvitados:', error); 
+      console.error('Error en obtenerInvitados:', error);
       throw new BadRequestException(error.message);
     }
   }

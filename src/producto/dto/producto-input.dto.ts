@@ -23,7 +23,7 @@ export class ProductoInputDto {
     description: 'Clasificación del producto',
     example: 'Dulce',
   })
-  readonly clasificación: string;
+  readonly clasificacion: string;
 
   @ApiProperty({
     description: 'SKU del producto',

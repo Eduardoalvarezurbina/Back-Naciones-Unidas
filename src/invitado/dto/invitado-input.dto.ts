@@ -2,9 +2,7 @@ import { IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class InvitadoInputDto {
-  toDto(): import("./invitado-output.dto").InvitadoOutputDto | PromiseLike<import("./invitado-output.dto").InvitadoOutputDto> {
-    throw new Error('Method not implemented.');
-  }
+  
   @ApiProperty({ description: 'Nombre del invitado', example: 'Juan Pérez' })
   @IsString()
   nombre_completo: string;

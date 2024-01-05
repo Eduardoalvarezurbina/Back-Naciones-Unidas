@@ -4,11 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CarroDeComprasModule } from './carro-de-compras/carro-de-compras.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
-import { CajasDelMesModule } from './cajas-del-mes/cajas-del-mes.module';
 import { SuscripcionModule } from './suscripcion/suscripcion.module';
 import { InvitadoModule } from './invitado/invitado.module'; 
 import { ProductoModule } from './producto/producto.module';
 import { ExpressAdapter, NestExpressApplication } from '@nestjs/platform-express';
+import { CajaModule } from './caja/caja.module';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
@@ -49,8 +49,8 @@ let documentBuilderinvitado =new DocumentBuilder()
 .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
 .build();
 
-let documentBuilderCajasDelMes =new DocumentBuilder()
-  .setTitle("Documentación de la API - Cajas del mes")
+let documentBuilderCaja =new DocumentBuilder()
+  .setTitle("Documentación de la API - Cajas ")
   .setVersion(versionProyecto)
   .setDescription("Página web Naciones Unidas")
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
@@ -90,8 +90,8 @@ let documentBuilderUsuario =new DocumentBuilder()
 
   const document = SwaggerModule.createDocument(app, documentBuilder);
  
-  const documentCajasDelMes= SwaggerModule.createDocument(app, documentBuilderCajasDelMes, {
-    include: [CajasDelMesModule]
+  const documentCajasDelMes= SwaggerModule.createDocument(app, documentBuilderCaja, {
+    include: [CajaModule]
   });
 
   const documentCarrodecompras= SwaggerModule.createDocument(app, documentBuilderCarrodecompras, {
@@ -116,7 +116,7 @@ let documentBuilderUsuario =new DocumentBuilder()
   });
 
   SwaggerModule.setup ('documentacion', app, document); 
-  SwaggerModule.setup ('cajasdelmes', app, documentCajasDelMes);
+  SwaggerModule.setup ('api-docs/caja', app, documentCajasDelMes);
   SwaggerModule.setup ('api-docs/carrodecompras', app, documentCarrodecompras);
   SwaggerModule.setup ('auth', app, documentFooter);
   SwaggerModule.setup ('suscripcion', app, documentSuscripcion);
@@ -124,7 +124,6 @@ let documentBuilderUsuario =new DocumentBuilder()
   SwaggerModule.setup ('api-docs/invitados', app, documentInvitado);
   SwaggerModule.setup ('api-docs/producto', app, documentProducto);
 
-  //server.use('/imagenes', express.static(join(__dirname, '..', 'imagenes')));
 
   app.useStaticAssets('C:\\Users\\edoal\\Desktop\\Backend\\imagenes',{
     prefix: '/imagenes/', // Prefijo de la ruta para acceder a los archivos

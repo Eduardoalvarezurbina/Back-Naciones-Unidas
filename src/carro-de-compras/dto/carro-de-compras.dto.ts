@@ -1,4 +1,6 @@
-export class carro-de-comprasDto {
-    id: number;
-    cantidad: number;
-  }
+export class CarroDeComprasDto {
+  idProducto: number[];
+  cantidadProducto: number[];
+  idCaja: number[];
+  cantidadCaja: number[];
+}

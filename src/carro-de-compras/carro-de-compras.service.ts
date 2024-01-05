@@ -1,50 +1,82 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { ProductoEntity } from '../producto/producto.entity';
-import { CompraEntity } from '../compra/compra.entity';
-import { ProductoCarroDto } from './dto/carro-de-compras.dto';
+import { Injectable } from "@nestjs/common";
+import { ProductoEntity } from "src/producto/producto.entity";
+import { CajaEntity } from "src/caja/caja.entity";
+import { Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
+import { CarroDeComprasDto } from "./dto/carro-de-compras.dto";
+
 
 @Injectable()
 export class CarroDeComprasService {
-  private carrito: ProductoEntity[] = [];
-  //agregarProducto: any;
-
   constructor(
-    @InjectRepository(CompraEntity)
-    private readonly compraRepository: Repository<CompraEntity>,
+    @InjectRepository(ProductoEntity)
+    private readonly productoRepository: Repository<ProductoEntity>,
+    @InjectRepository(CajaEntity)
+    private readonly cajaRepository: Repository<CajaEntity>,
   ) {}
 
-  agregarProducto(producto: ProductoEntity): void {
-    this.carrito.push(producto);
+  async verificarStock(carrito: CarroDeComprasDto[]): Promise<{ carritoSinStockProducto: number[]; carritoSinStockCaja: number[]; carritoConStock: { idProducto?: number; cantidadProducto?: number; idCaja?: number; cantidadCaja?: number }[] }> {
+    const carritoSinStockProducto: number[] = [];
+    const carritoSinStockCaja: number[] = [];
+    const carritoConStock: { idProducto?: number; cantidadProducto?: number; idCaja?: number; cantidadCaja?: number }[] = [];
+  
+    for (const item of carrito) {
+      if (item.idProducto && item.cantidadProducto) {
+        for (let i = 0; i < item.idProducto.length; i++) {
+          try {
+            const producto = await this.obtenerProductoPorId(item.idProducto[i]);
+  
+            if (!producto) {
+              carritoSinStockProducto.push(item.idProducto[i]);
+            } else if (producto.cantidad < item.cantidadProducto[i]) {
+              carritoSinStockProducto.push(item.idProducto[i]);
+            } else {
+              const productoConStock = {
+                idProducto: item.idProducto[i],
+                cantidadProducto: item.cantidadProducto[i]
+              };
+              carritoConStock.push(productoConStock);
+            }
+          } catch (error) {
+            console.log('Error al obtener el producto:', error);
+          }
+        }
+      }
+  
+      if (item.idCaja && item.cantidadCaja) {
+        for (let i = 0; i < item.idCaja.length; i++) {
+          try {
+            const caja = await this.obtenerCajaPorId(item.idCaja[i]);
+  
+            if (!caja) {
+              carritoSinStockCaja.push(item.idCaja[i]);
+            } else if (caja.cantidad < item.cantidadCaja[i]) {
+              carritoSinStockCaja.push(item.idCaja[i]);
+            } else {
+              const cajaConStock = {
+                idCaja: item.idCaja[i],
+                cantidadCaja: item.cantidadCaja[i]
+              };
+              carritoConStock.push(cajaConStock);
+            }
+          } catch (error) {
+            console.log('Error al obtener la caja:', error);
+          }
+        }
+      }
+    }
+  
+    const respuesta = { carritoSinStockProducto, carritoSinStockCaja, carritoConStock };
+    return respuesta;
   }
 
-  async guardarCompra(productosArray: ProductoEntity[]): Promise<string> {
-    const compraId = Date.now().toString();
-
-    const compra = this.compraRepository.create({
-      id: compraId,
-      productos: productosArray,
-    });
-
-    // Guarda la compra en la base de datos
-    await this.compraRepository.save(compra);
-
-    // Agrega el ID de la compra al carrito
-    this.carrito.push(...productosArray.map(producto => ({ ...producto, compraId })));
-
-    return compraId;
+  private async obtenerProductoPorId(id: number): Promise<ProductoEntity | undefined> {
+    const producto = await this.productoRepository.findOne({ where: { id } });
+    return producto;
   }
 
-  async obtenerProductoPorId(id: number): Promise<ProductoEntity | undefined> {
-    return this.carrito.find(producto => producto.id === id);
-  }
-
-  obtenerCarrito(): ProductoEntity[] {
-    return this.carrito;
-  }
-
-  vaciarCarrito(): void {
-    this.carrito = [];
+  private async obtenerCajaPorId(id: number): Promise<CajaEntity | undefined> {
+    const caja = await this.cajaRepository.findOne({ where: { id } });
+    return caja;
   }
 }
