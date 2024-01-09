@@ -1,16 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { CarroDeComprasModule } from './carro-de-compras/carro-de-compras.module';
-import { AuthModule } from './auth/auth.module';
-import { UsuarioModule } from './usuario/usuario.module';
-import { SuscripcionModule } from './suscripcion/suscripcion.module';
-import { InvitadoModule } from './invitado/invitado.module'; 
-import { ProductoModule } from './producto/producto.module';
+import { CarroDeComprasModule } from './module/carro-de-compras.module';
+import { LoginModule } from './module/login.module';
+import { UsuarioModule } from './module/usuario.module';
+import { SuscripcionModule } from './module/suscripcion.module';
+import { InvitadoModule } from './module/invitado.module'; 
+import { ProductoModule } from './module/producto.module';
+import { CompraModule } from './module/compra.module';
 import { ExpressAdapter, NestExpressApplication } from '@nestjs/platform-express';
-import { CajaModule } from './caja/caja.module';
+import { CajaModule } from './module/caja.module';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import { ComentarioModule } from './module/comentario.module';
 
 async function bootstrap() {
   const server =express();
@@ -86,8 +88,25 @@ let documentBuilderUsuario =new DocumentBuilder()
   .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
   .build();
 
-
-
+let documentBuilderCompra =new DocumentBuilder()
+  .setTitle("Documentación de la API - Compra")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+  .build();
+let documentBuilderLogin =new DocumentBuilder()
+  .setTitle("Documentación de la API - Login")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail.com")
+  .build();
+  
+let documentBuilderComentario =new DocumentBuilder()
+  .setTitle("Documentación de la API - Comentario")
+  .setVersion(versionProyecto)
+  .setDescription("Página web Naciones Unidas")
+  .setContact("Eduardo Alvarez", "http://google.com", "Eduardoalvarezurbina94@gmail")
+  .build();
   const document = SwaggerModule.createDocument(app, documentBuilder);
  
   const documentCajasDelMes= SwaggerModule.createDocument(app, documentBuilderCaja, {
@@ -99,7 +118,7 @@ let documentBuilderUsuario =new DocumentBuilder()
   });
 
   const documentFooter= SwaggerModule.createDocument(app, documentBuilderAuth, {
-    include: [AuthModule]
+    include: [LoginModule]
   });
   
   const documentSuscripcion= SwaggerModule.createDocument(app, documentBuilderSuscripcion, {
@@ -114,15 +133,27 @@ let documentBuilderUsuario =new DocumentBuilder()
   const documentProducto= SwaggerModule.createDocument(app, documentBuilderProducto, {
     include: [ProductoModule]
   });
+  const documentCompra= SwaggerModule.createDocument(app, documentBuilderCompra, {
+    include: [CompraModule]
+  });
+  const documentLogin= SwaggerModule.createDocument(app, documentBuilderLogin, {
+    include: [LoginModule]
+  });
+  const documentComentario= SwaggerModule.createDocument(app, documentBuilderComentario, {
+    include: [ComentarioModule]
+  });
 
   SwaggerModule.setup ('documentacion', app, document); 
   SwaggerModule.setup ('api-docs/caja', app, documentCajasDelMes);
   SwaggerModule.setup ('api-docs/carrodecompras', app, documentCarrodecompras);
-  SwaggerModule.setup ('auth', app, documentFooter);
-  SwaggerModule.setup ('suscripcion', app, documentSuscripcion);
-  SwaggerModule.setup ('usuario', app, documentUsuario);
-  SwaggerModule.setup ('api-docs/invitados', app, documentInvitado);
+  SwaggerModule.setup ('api-docs/login', app, documentFooter);
+  SwaggerModule.setup ('api-docs/suscripcion', app, documentSuscripcion);
+  SwaggerModule.setup ('api-docs/usuario', app, documentUsuario);
+  SwaggerModule.setup ('api-docs/invitado', app, documentInvitado);
   SwaggerModule.setup ('api-docs/producto', app, documentProducto);
+  SwaggerModule.setup ('api-docs/compra', app, documentCompra);
+  SwaggerModule.setup ('api-docs/login', app, documentLogin)
+  SwaggerModule.setup ('api-docs/comentario',app, documentComentario)
 
 
   app.useStaticAssets('C:\\Users\\edoal\\Desktop\\Backend\\imagenes',{

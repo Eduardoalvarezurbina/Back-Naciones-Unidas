@@ -1,17 +1,25 @@
 import { Module } from '@nestjs/common';
-import { UsuarioModule } from './usuario/usuario.module';
-import { CarroDeComprasModule } from './carro-de-compras/carro-de-compras.module';
-import { AuthModule } from './auth/auth.module';
-import { SuscripcionModule } from './suscripcion/suscripcion.module';
-import { CajaModule } from './caja/caja.module';
-import { InvitadoModule } from './invitado/invitado.module';
+
+import { CarroDeComprasModule } from './module/carro-de-compras.module';
+import { LoginModule } from './module/login.module';
+import { SuscripcionModule } from './module/suscripcion.module';
+import { CajaModule } from './module/caja.module';
+import { InvitadoModule } from './module/invitado.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { InvitadoEntity } from './invitado/invitado.entity';
-import { ProductoModule } from './producto/producto.module';
-import { UsuarioService } from './usuario/usuario.service';
-import { UsuarioController } from './usuario/usuario.controller';
-import { UsuarioEntity } from './usuario/usuario.entity';
-import { ProductoEntity } from './producto/producto.entity';
+import { InvitadoEntity } from './entity/invitado.entity';
+import { ProductoModule } from './module/producto.module';
+import { UsuarioService } from './service/usuario.service';
+import { UsuarioController } from './controller/usuario.controller';
+import { UsuarioEntity } from './entity/usuario.entity';
+import { ProductoEntity } from './entity/producto.entity';
+import { CarroDeComprasEntity } from './entity/carro-de-compras.entity';
+import { CajaEntity } from './entity/caja.entity';
+import { CompraEntity } from './entity/compra.entity';
+import { CompraModule } from './module/compra.module';
+import { UsuarioModule } from './module/usuario.module';
+import { SuscripcionEntity } from './entity/suscripcion.entity';
+import {ComentarioEntity } from './entity/comentario.entity';
+import { ComentarioModule } from './module/comentario.module';
 //import { ProductoRepository } from './producto/producto.repository';
 
 @Module({
@@ -23,7 +31,7 @@ import { ProductoEntity } from './producto/producto.entity';
       username: 'root',
       password: 'clave123',
       database: 'picoteo',
-      entities: [InvitadoEntity, UsuarioEntity, ProductoEntity],
+      entities: [InvitadoEntity, UsuarioEntity, ProductoEntity, CarroDeComprasEntity, CajaEntity, ProductoEntity, CompraEntity, SuscripcionEntity, ComentarioEntity],
       synchronize: true,
       logging: true,
       autoLoadEntities: true,
@@ -34,8 +42,10 @@ import { ProductoEntity } from './producto/producto.entity';
     SuscripcionModule,
     UsuarioModule,
     CarroDeComprasModule,
-    AuthModule,
+    LoginModule,
     SuscripcionModule,
+    CompraModule,
+    ComentarioModule,
   ],
   controllers: [UsuarioController],
   providers: [],
