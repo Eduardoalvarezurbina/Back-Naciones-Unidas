@@ -112,7 +112,7 @@ async actualizarParcialProducto(id: number, productoDto: Partial<ProductoInputDt
       const imagenBuffer2 = Buffer.from(imagenbuena2, 'base64');
       const rutaImagen2 = join(directorioImagenes, `${nombre}_2.png`);
       await writeFile(rutaImagen2, imagenBuffer2);
-      imagen2 = `/imagenes/${nombre}_2.png`;
+      imagen2 = `/imagenes/${nombre}_2.png`; 
     }
 
     let imagen3: string | undefined;

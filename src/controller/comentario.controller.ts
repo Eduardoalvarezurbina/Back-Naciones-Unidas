@@ -1,5 +1,10 @@
-import { Body, Controller, Post, HttpCode, HttpStatus, Logger, HttpException, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, HttpStatus, Logger, HttpException, Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiCreatedResponse, ApiTags, ApiOperation, ApiOkResponse, ApiParam } from '@nestjs/swagger';
+import { AuthGuard } from 'src/autenticacion/auth.guard';
+import { Permisos } from 'src/autenticacion/permisos.decorador';
+import { PermisosGuard } from 'src/autenticacion/permisos.guard';
+import { Roles } from 'src/autenticacion/roles.decorador';
+import { RolesGuard } from 'src/autenticacion/roles.guard';
 import { ComentarioDTO } from 'src/dto/comentario.dto';
 import { ComentarioEntity } from 'src/entity/comentario.entity';
 import { ComentarioService } from 'src/service/comentario.service';
@@ -11,8 +16,11 @@ export class ComentarioController {
   private readonly logger = new Logger(ComentarioController.name);
 
   constructor(private readonly comentarioService: ComentarioService) {}
-
+  @UseGuards(AuthGuard, RolesGuard)
   @Post()
+  @Roles('usuario')
+  @Permisos('crear-comentario')
+  @UseGuards(PermisosGuard)
   @ApiOperation({ summary: 'Crear un nuevo comentario' })
   @ApiBody({ type: ComentarioDTO, description: 'Datos para crear un nuevo comentario' })
   @ApiCreatedResponse({ description: 'Comentario creado exitosamente', type: ComentarioEntity })

@@ -28,7 +28,7 @@ export class CarroDeComprasController {
   @ApiBearerAuth()
   @ApiBody({ type: CarroDeComprasInputDto })
   @Post() // confirmar-carrito
-  @Roles('usuario', 'invitado')
+  @Roles('administrador','usuario', 'invitado')
   @Permisos('confirmar-carrito')
   @UseGuards(PermisosGuard)
   async confirmarCarrito(@Req() req: Request, @Body() carrito: CarroDeComprasInputDto[]): Promise<any> {

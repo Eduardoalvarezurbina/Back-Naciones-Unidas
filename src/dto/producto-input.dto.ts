@@ -15,7 +15,7 @@ export class ProductoInputDto {
 
   @ApiProperty({
     description: 'Clasificación del producto',
-    example: 'Dulce',
+    example: 'Vino',
   })
   readonly clasificacion: string;
 

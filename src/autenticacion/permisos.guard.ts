@@ -18,13 +18,13 @@ export class PermisosGuard implements CanActivate {
 
     const permisosPorRol = {//Define los permisos por rol
       administrador: [
-         'crear-producto', 'eliminar-producto', 'actualizar-producto', 'actualizar-producto-parcialmente',
-         'crear-caja', 'actualizar-caja', 'actualizar-caja-parcialmente', 'eliminar-caja', 'eliminar-invitado'
+         'crear-producto', 'eliminar-producto', 'actualizar-producto', 'actualizar-producto-parcialmente', 'confirmar-carrito', 'ver-carrito', 'descontar-stock', 'crear-caja', 'actualizar-caja', 'actualizar-caja-parcialmente', 'eliminar-caja', 'eliminar-invitado', 'eliminar-usuario', 'crear-suscripcion',
+         'crear-caja', 'crear-comentario', 'actualizar-caja', 'actualizar-caja-parcialmente', 'eliminar-caja', 'eliminar-invitado', 'eliminar-usuario', 'crear-suscripcion'
       ],
       usuario: [
-        'confirmar-carrito', 'ver-carrito', 'descontar-stock'],
+        'confirmar-carrito', 'ver-carrito', 'descontar-stock', 'crear-suscripcion', 'crear-comentario'],
       invitado: [
-        'confirmar-carrito', 'ver-carrito', 'descontar-stock'
+        'confirmar-carrito', 'ver-carrito', 'descontar-stock', 'crear-suscripcion'
       ]
     };
 

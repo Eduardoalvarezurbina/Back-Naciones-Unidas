@@ -5,12 +5,13 @@ import { SuscripcionService } from '../service/suscripcion.service';
 import { SuscripcionController } from '../controller/suscripcion.controller';
 import { UsuarioEntity } from 'src/entity/usuario.entity';
 import { InvitadoEntity } from 'src/entity/invitado.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SuscripcionEntity, UsuarioEntity, InvitadoEntity])],
+  imports: [JwtModule, TypeOrmModule.forFeature([SuscripcionEntity, UsuarioEntity, InvitadoEntity])],
   providers: [SuscripcionService],
   controllers: [SuscripcionController],
   exports: [SuscripcionService, TypeOrmModule.forFeature([SuscripcionEntity])],
 })
-export class SuscripcionModule {}
+export class SuscripcionModule {} 

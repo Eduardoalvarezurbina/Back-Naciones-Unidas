@@ -8,7 +8,7 @@ export class ProductoEntity extends BaseEntity {
   id: number;
 
   @Column()
-  nombre: string;
+  nombreProducto: string;
 
   @Column()
   descripcion: string;

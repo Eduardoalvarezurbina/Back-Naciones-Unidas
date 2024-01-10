@@ -37,6 +37,7 @@ export class CarroDeComprasService {
   
     for (const item of carrito) { //Recorre el carrito
       if (item.idProducto && item.cantidadProducto) { //Si hay productos en el carrito
+       
         for (let i = 0; i < item.idProducto.length; i++) {
           try {
             const producto = await this.obtenerProductoPorId(item.idProducto[i]); //Obtiene el producto por ID
@@ -54,7 +55,7 @@ export class CarroDeComprasService {
             }
           } catch (error) {
             this.logger.error('Error al obtener el producto:', error);
-            console.log('Error al obtener el producto:', error);
+            
           }
         }
       }
@@ -77,13 +78,14 @@ export class CarroDeComprasService {
             }
           } catch (error) {
             this.logger.error('Error al obtener la caja:', error);
-            console.log('Error al obtener la caja:', error);
+            
           }
         }
       }
     }
   
     const respuesta = { carritoSinStockProducto, carritoSinStockCaja, carritoConStock }; 
+    
     this.logger.debug('Verificación de stock completada');
     return respuesta;
   }
