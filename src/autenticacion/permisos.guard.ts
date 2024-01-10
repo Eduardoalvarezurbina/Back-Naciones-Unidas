@@ -47,7 +47,7 @@ export class PermisosGuard implements CanActivate {
         throw new ForbiddenException('No tienes el permiso adecuado para acceder a esta página');
       }
     
-      return tienePermiso; //Retorna true si el usuario tiene los permisos requeridos
+      return tienePermiso; //Retorna true si el usuario tiene los permisos requeridos.
     
     } catch (error) {
       
