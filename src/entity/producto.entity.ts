@@ -1,5 +1,6 @@
 import { CarroDeComprasEntity } from 'src/entity/carro-de-compras.entity';
-import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ComentarioEntity } from './comentario.entity';
 
 @Entity('productos')
 export class ProductoEntity extends BaseEntity {
@@ -33,7 +34,6 @@ export class ProductoEntity extends BaseEntity {
   @Column()
   cantidad: number;
   
-  //@ManyToMany(() => CarroDeComprasEntity, (carroDeCompras) => carroDeCompras.producto)
-  //carroDeCompras: CarroDeComprasEntity;
-  
+  @OneToMany(() => ComentarioEntity, comentario => comentario.producto)
+  comentario: ComentarioEntity[];
 } 

@@ -1,6 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
 import * as Crypto from 'crypto';
 import { CarroDeComprasEntity } from 'src/entity/carro-de-compras.entity';
+import { ComentarioEntity } from './comentario.entity';
+import { SuscripcionEntity } from './suscripcion.entity';
 
 @Entity('usuarios')
 export class UsuarioEntity {
@@ -30,6 +32,12 @@ export class UsuarioEntity {
 
   @Column()
   referencias: string;
+  
+  @OneToMany(() => SuscripcionEntity, suscripcion => suscripcion.usuario)
+  suscripciones: SuscripcionEntity[];
+
+  @OneToMany(() => ComentarioEntity, comentario => comentario.usuario)
+  comentario: ComentarioEntity[];
 
   @Column()
   passwordHash: string;
@@ -38,6 +46,4 @@ export class UsuarioEntity {
     this.passwordHash = Crypto.createHash( 'md5' ).update(clave).digest('hex')
   }
 
-  //@OneToOne(() => CarroDeComprasEntity, carroDeCompras => carroDeCompras.usuario)
-  //carroDeCompras: CarroDeComprasEntity;
 }

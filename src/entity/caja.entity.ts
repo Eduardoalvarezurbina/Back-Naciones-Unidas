@@ -36,6 +36,4 @@ export class CajaEntity {
   @Column('simple-array')
   productosIncluidos: string[];
 
-  //@ManyToMany(() => CarroDeComprasEntity, (carroDeCompras) => carroDeCompras.caja)
-  //carroDeCompras: CarroDeComprasEntity;
 }

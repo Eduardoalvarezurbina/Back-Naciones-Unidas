@@ -31,7 +31,7 @@ export class ProductoService {  // Crear una nueva caja
       const producto = await this.productoRepository.findOne({ where: { id } }); // Buscar producto por ID
       if (!producto) { // Si no existe la caja
         this.logger.warn('Producto no encontrado');
-        throw new NotFoundException('Producto no encontrado');
+        throw new NotFoundException('Producto no encontrado'); 
       }
       this.logger.debug('Producto encontrado');
       producto.imagen = `${producto.imagen}`; // Convertir la imagen a string

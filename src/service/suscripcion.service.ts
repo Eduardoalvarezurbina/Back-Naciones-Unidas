@@ -12,7 +12,7 @@ export class SuscripcionService {
     fechaFin.setMonth(fechaInicio.getMonth() + suscripcionInputDto.mesesDuracion);
 
     const nuevaSuscripcion: SuscripcionOutputDto = {
-      nombre: suscripcionInputDto.nombre,
+      
       mesesDuracion: suscripcionInputDto.mesesDuracion,
       fechaInicio: fechaInicio,
       fechaFin: fechaFin,

@@ -1,12 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { UsuarioEntity } from './usuario.entity';
+import { InvitadoEntity } from './invitado.entity';
 
 @Entity('suscripciones')
 export class SuscripcionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 255 })
-  nombre: string;
+  @ManyToOne(() => UsuarioEntity, { nullable: true })
+  @JoinColumn({ name: 'id_usuario' }) 
+  usuario?: UsuarioEntity;
+
+  @ManyToOne(() => InvitadoEntity, { nullable: true })
+  @JoinColumn({ name: 'id_invitado' }) 
+  invitado?: InvitadoEntity;
 
   @Column({ type: 'int' })
   mesesDuracion: number;

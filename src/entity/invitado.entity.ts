@@ -1,5 +1,5 @@
-import { CarroDeComprasEntity } from 'src/entity/carro-de-compras.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
+import { SuscripcionEntity } from './suscripcion.entity';
 
 @Entity('invitados')
 export class InvitadoEntity {
@@ -27,11 +27,11 @@ export class InvitadoEntity {
   @Column()
   celular: string;
 
+  @OneToMany(() => SuscripcionEntity, suscripcion => suscripcion.invitado)
+  suscripciones: SuscripcionEntity[];
+
   @Column({ nullable: true })
   referencia: string;
 
-  //@OneToOne(() => CarroDeComprasEntity, carroDeCompras => carroDeCompras.invitado)
-  //carroDeCompras: CarroDeComprasEntity;
-
-  
+ 
 }
